@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/album.dart';
+import '../models/fornecedor.dart';
 import '../services/api_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,12 +10,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Album>> futureAlbum;
+  late Future<List<Fornecedor>> futureFornecedor;
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = ApiService().fetchAlbum();
+    futureFornecedor = ApiService().fetchFornecedor();
   }
 
   @override
@@ -27,8 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.deepPurple,
       ),
       body: Center(
-        child: FutureBuilder<List<Album>>(
-          future: futureAlbum,
+        child: FutureBuilder<List<Fornecedor>>(
+          future: futureFornecedor,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(8.0),
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                final album = snapshot.data![index];
+                final fornecedor = snapshot.data![index];
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 10.0),
                   elevation: 6,
@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(width: 10),
                             Expanded(
                               child: Text(
-                                album.nome,
+                                fornecedor.nome,
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              "Telefone: ${album.telefone}",
+                              "Telefone: ${fornecedor.telefone}",
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black54,
@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              "Produto: ${album.produto}",
+                              "Produto: ${fornecedor.produto}",
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black54,
@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              "Cidade: ${album.cidade}",
+                              "Cidade: ${fornecedor.cidade}",
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black54,

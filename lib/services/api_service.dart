@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/album.dart';
+import '../models/fornecedor.dart';
 
 class ApiService {
-  Future<List<Album>> fetchAlbum() async {
+  Future<List<Fornecedor>> fetchFornecedor() async {
     final response = await http
         .get(Uri.parse('https://arquivos.ectare.com.br/fornecedores.json'));
 
     if (response.statusCode == 200) {
       // Processar os dados e substituir caracteres especiais
       return (json.decode(response.body) as List)
-          .map((item) => Album.fromJson(_replaceSpecialCharacters(item)))
+          .map((item) => Fornecedor.fromJson(_replaceSpecialCharacters(item)))
           .toList();
     } else {
       throw Exception('Failed to load data');
